@@ -2,12 +2,14 @@ from unittest import TestCase
 import pandas as pd
 import os
 
-from MlProject.main import model_repo
-from MlProject.src.train import execute_all
+from Ml_Training.src.model import ModelRepository
+from Ml_Training.src.train import execute_all
 
 
 class TestTrain(TestCase):
     def test_execute_all(self):
+        model_registry = ModelRepository()
+        model_repo = model_registry.get_model_space()
         df = pd.read_csv('test_df.csv')
         df_x = df[['Flavanoids', 'Dilution', 'Phenols']]
         df_y = df[['Type']]

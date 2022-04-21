@@ -5,9 +5,9 @@ from sklearn.svm import SVC
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
-from MlProject.src.data import split_data
-from MlProject.output.save import save_model
-from MlProject.src.validation import generate_validation, grid_search, select_best
+from Ml_Training.src.data import split_data
+from Ml_Training.output.save import save_model
+from Ml_Training.src.validation import generate_validation, grid_search, select_best
 
 
 def train_model(model: t.Optional[SVC], X, y) -> t.Optional[SVC]:
