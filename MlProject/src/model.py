@@ -30,4 +30,22 @@ class ModelRepository:  # todo explore class possibilities
         }]]}
 
     def get_model_space(self):
+        """
+        The default model dictionary is:
+        {"random forest": [rfc, [{
+        'randomforestclassifier__max_depth': [5, 6, 7, 8, 9, 10],
+        'randomforestclassifier__max_features': [2, 3]  # todo set this to incl. features until the max of the given df
+    }]], "logistic": [logistic, [{
+        'logisticregression__C': [0.001, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0, 10.0, 50.0],
+    }]], "svc": [svc, [{
+        'svc__C': [0.001, 0.01, 0.05, 0.1, 0.5, 1.0, 10.0],
+        'svc__kernel': ['linear']
+    },
+        {
+            'svc__C': [0.001, 0.01, 0.05, 0.1, 0.5, 1.0, 10.0],
+            'svc__gamma': [0.001, 0.01, 0.05, 0.1, 0.5, 1.0, 10.0],
+            'svc__kernel': ['rbf']
+        }]]}
+        :return: the default model dictionary
+        """
         return self.MODEL_SPACE
