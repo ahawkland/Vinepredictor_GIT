@@ -21,13 +21,12 @@ def train_model(model: t.Optional[SVC], X, y) -> t.Optional[SVC]:
 def execute_all(model_repo: t.Dict[str, t.Any],
                 df_x: pd.DataFrame, df_y: pd.DataFrame, filename="savedmodel", savemodel=False) -> object:
     """
-    The function:
-    returns:
-        a dictionary with the model name, the best parameters and the f1 scores based on the model_repo dictionary
-        and the name of the saved model
-    also:
-        prints out the best parameters for the models.
-        saves the best model and returns the name of the saved model if savemodel=True
+    The function returns a dictionary with the model name, the best parameters and the f1 scores based on the
+    model_repo dictionary and the name of the saved model
+        df_x: the dataframe without the class(column) we are to predict
+        df_y: the part/class/column of the dataframe we predict
+        filename: the filename we want to save the trained model
+        savemodel:Bool - if True the function saves the model, if False it does not save
         :rtype: object
     """
     best_f1 = 0.0
