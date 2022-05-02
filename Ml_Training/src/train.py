@@ -6,7 +6,7 @@ from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 from Ml_Training.src.data import split_data
-from Ml_Training.output.save import save_model
+from Ml_Training.src.save import save_model
 from Ml_Training.src.validation import generate_validation, grid_search, select_best
 
 
