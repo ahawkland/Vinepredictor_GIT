@@ -1,8 +1,10 @@
 import typing as t
 import pickle
 from pathlib import Path
+from .pathconfig import PathConfig
 
-CENTRAL_MODEL_REPOSITORY = Path(__file__).parent.parent
+PATHFINDER = PathConfig()
+CENTRAL_MODEL_REPOSITORY = PATHFINDER.output
 
 
 def save_model(model: t.Any, filename: t.Any, modelname: t.Any) -> None:
@@ -18,6 +20,7 @@ def save_model(model: t.Any, filename: t.Any, modelname: t.Any) -> None:
     with open(CENTRAL_MODEL_REPOSITORY.joinpath(file_name), 'wb') as file_:
         pickle.dump(model, file_)
     print(f'Model Saved as: {file_name}')
+    return file_name
 
 
 def read_model(filename: str) -> t.Any:

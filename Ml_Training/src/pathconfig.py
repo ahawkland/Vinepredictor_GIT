@@ -14,6 +14,7 @@ class PathConfig:
         self.configs = self.base_path.joinpath("configs")
         self.path = self.base_path
         self.model_config = self.configs.joinpath("model.yaml")
+        self.output = self.base_path.joinpath("output")
 
 
 if __name__ == "__main__":
