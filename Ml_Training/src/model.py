@@ -10,6 +10,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn import tree
 from sklearn.neighbors import KNeighborsClassifier
+from xgboost import XGBClassifier
 
 from Ml_Training.src.pathconfig import PathConfig
 
@@ -49,7 +50,8 @@ def get_model_attr(model: str, config: dict) -> tuple[Any, Optional[Any]]:
         "svc_lin": SVC(),
         "svc_rbf": SVC(),
         "dtree": tree.DecisionTreeClassifier(),
-        "knn": KNeighborsClassifier()
+        "knn": KNeighborsClassifier(),
+        "xgb": XGBClassifier()
     }
 
     return model_repo.get(model), config.get(model)

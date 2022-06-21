@@ -79,20 +79,15 @@ def execute_all(
 
 def main():
     #model_list = ['random_forest', 'logistic', 'svc_lin', 'svc_rbf', 'dtree', 'knn']
-    model_list = ['random_forest']
-    #model_list = ['dtree']
+    model_list = ['xgb']
     # Loading data
     irisData = load_iris()
     # Create feature and target arrays
     df_x = pd.DataFrame(irisData.data)
     df_y = pd.DataFrame(irisData.target)
-    #print(df_x)
-    #print(df_y)
     metrics = execute_all(model_list, df_x, df_y, filename='vine_model',
                           config=read_configs(PATHFINDER.model_config), savemodel=False)
 
 
 if __name__ == '__main__':
-    #print(get_model_attr('dtree', read_configs(PATHFINDER.model_config)))
-    #read_configs(PATHFINDER.model_config)
     main()

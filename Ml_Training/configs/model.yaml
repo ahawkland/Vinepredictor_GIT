@@ -1,6 +1,6 @@
 random_forest:
   randomforestclassifier__max_depth: [5, 6, 7, 8, 9, 10]
-  randomforestclassifier__max_features: [2, 3]
+  randomforestclassifier__max_features: [2, 3, 4]
 logistic:
   logisticregression__C: [0.001, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0, 10.0, 50.0]
 svc_lin:
@@ -15,3 +15,8 @@ dtree:
   decisiontreeclassifier__min_samples_leaf: [0.01, 0.1, 1, 3, 5, 10]
 knn:
   kneighborsclassifier__n_neighbors: [1, 3, 5, 7, 9, 10]
+xgb:
+  xgbclassifier__n_estimators: [50, 500, 1000]
+  xgbclassifier__max_depth: [4, 6, 10]
+  xgbclassifier__eta: [0.1, 0.5, 1.0]
+  xgbclassifier__subsample: [0.1, 0.5, 1.0]
