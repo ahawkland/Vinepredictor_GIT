@@ -57,8 +57,9 @@ def index():
     return {"Message": "This is a Machine Learning predictor project"}  # python dictionary
 
 
+# endpoint parameter is used to return a data relating to an input in the part of the endpoint
 @app.get(
-    "/get-entity/{entity_id}")  # endpoint parameter is used to return a data relating to an input in the part of the endpoint
+    "/get-entity/{entity_id}")
 def get_entity(entity_id: int = Path(None, description="The ID of the Entity you want to view", gt=0, lt=10)):
     return entities[entity_id]
 
@@ -76,7 +77,7 @@ def get_entity(*, entity_id: int, name: Optional[str] = None,
 def predict(entity_id: int):
     if entity_id in entities:
         prediction = ml.predictor(entities[entity_id].features)
-        return {'For this vine:' : entities[entity_id].name,
+        return {'For this vine:': entities[entity_id].name,
                 'The predicted quality is:': int(prediction[0])}
     return {"Data": "Not found"}
 
