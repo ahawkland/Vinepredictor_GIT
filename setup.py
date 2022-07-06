@@ -1,20 +1,23 @@
 from setuptools import setup, find_packages
-
+from vinepredictor.pathconfig import PathConfig
+import src.vinepredictor
 
 DESCRIPTION = 'Machine Learning - Training package'
 LONG_DESCRIPTION = 'Machine learning package for training and parameter optimisation'
-PACKAGE_NAME = "winepredictor"
+PACKAGE_NAME = "vinepredictor"
+
+PATHFINDER = PathConfig()
 
 
 def get_package_version():
-    package_path = "src/winepredictor"
-    # todo: Reda the version from the __init__.py file and return the version
-    return "0.0.3"
+    version = src.vinepredictor.VERSION
+    print(version)
+    return version
 
 
 # setting up
 setup(
-    name='winepredictor',
+    name='vinepredictor',
     version=get_package_version(),
     author='Adam Hertelendi',
     description=DESCRIPTION,
@@ -31,3 +34,10 @@ setup(
       ]
 )
 
+
+def main():
+    get_package_version()
+
+
+if __name__ == '__main__':
+    main()

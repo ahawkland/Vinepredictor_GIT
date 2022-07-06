@@ -1,7 +1,6 @@
 import typing as t
 import pickle
-from pathlib import Path
-from .pathconfig import PathConfig
+from src.vinepredictor.pathconfig import PathConfig
 
 PATHFINDER = PathConfig()
 CENTRAL_MODEL_REPOSITORY = PATHFINDER.output
@@ -32,4 +31,10 @@ def read_model(filename: str) -> t.Any:
     loaded_model = pickle.load(open(filename, 'rb'))
     return loaded_model
 
-#
+
+def main():
+    read_model(CENTRAL_MODEL_REPOSITORY.joinpath('vine_model_ran.pickle'))
+
+
+if __name__ == '__main__':
+    main()
