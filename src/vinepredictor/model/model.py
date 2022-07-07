@@ -12,7 +12,7 @@ from sklearn import tree
 from sklearn.neighbors import KNeighborsClassifier
 from xgboost import XGBClassifier
 
-from Ml_Training.src.pathconfig import PathConfig
+from src.vinepredictor.pathconfig import PathConfig
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.simplefilter(action='ignore', category=DeprecationWarning)

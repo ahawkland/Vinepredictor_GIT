@@ -1,15 +1,17 @@
 import pandas as pd
-import Ml_Training.src as ml
+import src.vinepredictor.pathconfig as pc
+from src.vinepredictor.model.train import execute_all
+from src.vinepredictor.model.train import read_configs
 
 
 def generate_model(model_list):
-    path_ = ml.PathConfig()
+    path_ = pc.PathConfig()
     data_path = path_.data.joinpath('vine_dataset.csv')
     df = pd.read_csv(data_path)
     df_x = df.drop('Type', axis=1)
     df_y = df[['Type']]
-    metrics = ml.execute_all(model_list, df_x, df_y, filename='vine_model',
-                             config=ml.read_configs(path_.model_config), savemodel=True)
+    metrics = execute_all(model_list, df_x, df_y, filename='vine_model',
+                          config=read_configs(path_.model_config), savemodel=True)
 
 
 def main():

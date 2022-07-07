@@ -11,7 +11,7 @@ PATHFINDER = PathConfig()
 
 def get_package_version():
     version = src.vinepredictor.VERSION
-    print(version)
+    #print(version)
     return version
 
 

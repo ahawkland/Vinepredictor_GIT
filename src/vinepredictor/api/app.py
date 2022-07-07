@@ -1,9 +1,9 @@
-from fastapi import FastAPI, Path
-from typing import Optional
-from pydantic import BaseModel
+from fastapi import FastAPI
+
 from src.vinepredictor.model.predictor import predictor
 
 app = FastAPI()
+
 
 @app.get("/")  # our own page endpoint
 def index():

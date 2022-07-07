@@ -5,15 +5,15 @@ from sklearn.svm import SVC
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
-from Ml_Training.src.data import split_data
-from Ml_Training.src.model import get_model_attr, read_configs
-from Ml_Training.src.modelio import save_model
+from src.vinepredictor.Data.data import split_data
+from src.vinepredictor.model.model import get_model_attr, read_configs
+from src.vinepredictor.model.modelio import save_model
 
 
 from sklearn.datasets import load_iris
 
-from Ml_Training.src.pathconfig import PathConfig
-from Ml_Training.src.validation import grid_search, generate_validation, select_best
+from src.vinepredictor.pathconfig import PathConfig
+from src.vinepredictor.model.validation import grid_search, generate_validation, select_best
 
 
 def train_model(model: t.Optional[SVC], X, y) -> t.Any:
