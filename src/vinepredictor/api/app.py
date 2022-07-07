@@ -5,6 +5,10 @@ from src.vinepredictor.model.predictor import predictor
 
 app = FastAPI()
 
+@app.get("/")  # our own page endpoint
+def index():
+    return {"Message": "This is a Machine Learning predictor project for Vine quality"}
+
 
 @app.post("/predict")
 def predict_app(features: list):
