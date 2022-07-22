@@ -1,18 +1,33 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
+from src.vinepredictor.pathconfig import PathConfig
+from src.vinepredictor.model.predictor import Predictor
 
-from src.vinepredictor.model.predictor import predictor
 
 app = FastAPI()
+templates = Jinja2Templates(directory="src/vinepredictor/api/templates")
+
+
+model_path = PathConfig().output.joinpath('vine_model_ran.pickle')
+predictor = Predictor(model_path)
+predictor.init()
 
 
 @app.get("/")  # our own page endpoint
-def index():
-    return {"Message": "This is a Machine Learning predictor project for Vine quality"}
+def home(request: Request):
+    """
+    Displays the vinepredictor indexpage
+    :return:
+    """
+    return templates.TemplateResponse("home.html", {
+        "request": request
+    })
+
 
 
 @app.post("/predict")
 def predict_app(features: list):
-    prediction = predictor(features)
+    prediction = predictor.predict(features)
     return {'The predicted vine class is :': int(prediction[0])}
 
 

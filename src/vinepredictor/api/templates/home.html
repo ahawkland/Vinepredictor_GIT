@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script>
+$(document).ready(function() {
+    $("#add_features").click(function() {
+            $('.ui.modal').modal('show');
+    })
+
+    $("#save").click(function() {
+        var features = $("#features").val();
+
+        $.ajax({
+          url: '/predict',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({"features": features}),
+          dataType: 'json'
+        })
+    $('.ui.modal').modal('hide');
+    })
+});
+</script>
+
+
+
+<button id="add_features"  class="ui button primary">Add Features</button>
+
+<table class="ui celled table">
+  <thead>
+    <tr>
+        <th>Quality type of the vine</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+      <td data-label="Type">{{}}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Add Features
+  </div>
+  <div class="content">
+    <div class="ui form">
+      <div class="field">
+        <label>Enter Vine Features as an array</label>
+        <textarea id="features"></textarea>
+      </div>
+</div>
+  </div>
+  <div class="actions">
+    <div id="save" class="ui positive right labeled icon button">
+      Add Features
+      <i class="plus icon"></i>
+    </div>
+  </div>
+</div>
+{% endblock %}
