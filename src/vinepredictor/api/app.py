@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from src.vinepredictor.pathconfig import PathConfig
 from src.vinepredictor.model.predictor import Predictor
+from src.vinepredictor.api.request import prediction_request
 
 
 app = FastAPI()
@@ -29,6 +30,12 @@ def home(request: Request):
 def predict_app(features: list):
     prediction = predictor.predict(features)
     return {'The predicted vine class is :': int(prediction[0])}
+
+
+@app.post("/prediction_request")
+async def prediction_request_app(features_from_user):
+    print("prediction_request_app started")
+    return prediction_request(features_from_user)
 
 
 def main():

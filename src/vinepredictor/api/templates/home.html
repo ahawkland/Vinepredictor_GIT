@@ -11,7 +11,7 @@ $(document).ready(function() {
         var features = $("#features").val();
 
         $.ajax({
-          url: '/predict',
+          url: '/prediction_request',
           type: 'POST',
           contentType: 'application/json',
           data: JSON.stringify({"features": features}),
@@ -22,8 +22,6 @@ $(document).ready(function() {
 });
 </script>
 
-
-
 <button id="add_features"  class="ui button primary">Add Features</button>
 
 <table class="ui celled table">
@@ -33,7 +31,7 @@ $(document).ready(function() {
   </tr></thead>
   <tbody>
     <tr>
-      <td data-label="Type">{{}}}</td>
+      <td data-label="Type">0</td>
     </tr>
   </tbody>
 </table>
@@ -53,7 +51,7 @@ $(document).ready(function() {
   </div>
   <div class="actions">
     <div id="save" class="ui positive right labeled icon button">
-      Add Features
+      Add Features and predict
       <i class="plus icon"></i>
     </div>
   </div>
