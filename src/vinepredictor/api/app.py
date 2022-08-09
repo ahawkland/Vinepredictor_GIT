@@ -25,7 +25,6 @@ def home(request: Request):
     })
 
 
-
 @app.post("/predict")
 def predict_app(features: list):
     prediction = predictor.predict(features)
@@ -39,9 +38,9 @@ async def prediction_request_app(features_from_user):
 
 
 def main():
-    print('Type prediction of vine no 1:\n', predict_app([0, 14.23, 1.71, 2.43, 15.6, 127, 2.8,
-                                                          3.06, 0.28, 2.29, 5.64, 1.04, 3.92, 1065]))
-
+    print('Type prediction of vine:\n', prediction_request_app([0, 14.23, 1.71, 2.43, 15.6, 127, 2.8,
+                                                                3.06, 0.28, 2.29, 5.64, 1.04, 3.92, 1065]))
+#a probléma vszeg: egy olyan ubjektumot kapok vissza amit ez a kliens nem tud kezelni. Ezt kellene vhogy visszakonvertálni
 
 if __name__ == '__main__':
     main()
