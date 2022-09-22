@@ -11,7 +11,7 @@ $(document).ready(function() {
         var features = $("#features").val();
 
         $.ajax({
-          url: '/prediction_request',
+          url: '/predict',
           type: 'POST',
           contentType: 'application/json',
           data: JSON.stringify({"features": features}),

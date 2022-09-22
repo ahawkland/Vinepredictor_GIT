@@ -19,6 +19,7 @@ def post_precess(text) -> dict:
     print(into_dict)
     return into_dict
 
+
 def prediction_request(request_from_user: dict) -> dict:
     request = post_precess(request_from_user)
     prediction = get_prediction(request)
