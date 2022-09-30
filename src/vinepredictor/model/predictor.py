@@ -21,7 +21,7 @@ class Predictor:
         output_path = self.model_path
         self.model = io.read_model(output_path)
 
-    def predict(self, features: bytearray) -> int:
+    def predict(self, features: list) -> int:
         """
         This the prediction function of the class
         :param features: an array of floats

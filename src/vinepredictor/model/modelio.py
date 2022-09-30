@@ -6,11 +6,12 @@ PATHFINDER = PathConfig()
 CENTRAL_MODEL_REPOSITORY = PATHFINDER.output
 
 
-def save_model(model: t.Any, filename: t.Any, modelname: t.Any) -> None:
+def save_model(model: t.Any, filename: t.Any, modelname: t.Any) -> str:
     """
     Save the specified model with pickle under the given filename + the modelname.
     Also prints the saved file name.
-    :param model: the trained model
+    param model: the trained model
+    :param model: the pre-trained model
     :param filename: the desired filename which under the model is saved
     :param modelname: the name of the model
     :return: None
@@ -22,7 +23,7 @@ def save_model(model: t.Any, filename: t.Any, modelname: t.Any) -> None:
     return file_name
 
 
-def read_model(filename: str) -> t.Any:
+def read_model(filename: t.Optional) -> t.Any:
     """
     The function loads the specified saved model (filename)
     :param filename: the saved models name

@@ -2,9 +2,9 @@ import streamlit as st
 import requests
 
 
-def get_prediction(request_json: dict) -> dict:
+def get_prediction(request_json: list) -> dict:
     """ This function communicates with the backend server prediction app
-    request_json: a dictionary containing the list of fetures
+    request_json: a dictionary containing the list of features
     :returns the prediction in json"""
     req_features = request_json
     resp = requests.post("http://127.0.0.1:8000/predict", json=req_features)
@@ -15,7 +15,7 @@ def get_prediction(request_json: dict) -> dict:
         return {"prediction": None}
 
 
-def post_precess(text) -> list:
+def post_process(text) -> list:
     """ This function process the user input string into a list of floats
     :returns a list of floats"""
     int_list = text.split(', ')
@@ -38,8 +38,10 @@ if input_features:  # after user enters the features
     print('input_features_type', type(input_features))
     print('input_features', input_features)
     try:  # if the input is processable the prediction is run
-        processed_features = post_precess(input_features)
+        processed_features = post_process(input_features)
         response = get_prediction(processed_features)
         st.text(f"The prediction of your input features is: {response['prediction']['prediction']}")
-    except Exception as e: # if the input is not adequate error returns
+    except Exception as e:  # if the input is not adequate error returns
         print(e)
+        st.text('There is something wrong with your input, please check.')
+        st.text(str(e))
