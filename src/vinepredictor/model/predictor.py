@@ -14,10 +14,19 @@ class Predictor:
         self.model = None
 
     def init(self) -> None:
+        """
+        this function directs us to the saved model
+        :return: None
+        """
         output_path = self.model_path
         self.model = io.read_model(output_path)
 
     def predict(self, features: bytearray) -> int:
+        """
+        This the prediction function of the class
+        :param features: an array of floats
+        :return: the prediction as an int
+        """
         features = np.reshape(features, (1, -1))
         prediction = self.model.predict(features)
         return prediction

@@ -1,29 +1,45 @@
 import streamlit as st
-import sys
-sys.path.insert(0, '../src')
-#from sys.path('src') import prediction_request
+import requests
 
+
+def get_prediction(request_json: dict) -> dict:
+    """ This function communicates with the backend server prediction app
+    request_json: a dictionary containing the list of fetures
+    :returns the prediction in json"""
+    req_features = request_json
+    resp = requests.post("http://127.0.0.1:8000/predict", json=req_features)
+    if resp.status_code == 200:
+        json_resp = resp.json()  # {"prediction": 1}
+        return {"prediction": json_resp}
+    else:
+        return {"prediction": None}
+
+
+def post_precess(text) -> list:
+    """ This function process the user input string into a list of floats
+    :returns a list of floats"""
+    int_list = text.split(', ')
+    into_list = [float(i) for i in int_list]
+    return into_list
+
+
+# --- Setting up the page ---
 st.set_page_config(page_title="Vinepredictor app", layout="wide")
 
 # --- Header Section ---
 st.header("Vinepredictor App")
 st.text("please enter your features of your vine")
 input_features = st.text_area(label='Features')
-st.text("Your features:")
 
-"""
-if input_features:
-    try:
-        response = prediction_request(input_features)
-        st.text(f"The prediction of your input features {response}")
-    except Exception as e:
+# --- User input and prediction ---
+if input_features:  # after user enters the features
+    st.text("Your features:")
+    st.text(input_features)
+    print('input_features_type', type(input_features))
+    print('input_features', input_features)
+    try:  # if the input is processable the prediction is run
+        processed_features = post_precess(input_features)
+        response = get_prediction(processed_features)
+        st.text(f"The prediction of your input features is: {response['prediction']['prediction']}")
+    except Exception as e: # if the input is not adequate error returns
         print(e)
-
-"""
-def main():
-    #print(prediction_request('0, 14.23, 1.71, 2.43, 15.6, 127, 2.8, 3.06, 0.28, 2.29, 5.64, 1.04, 3.92, 1065'))
-    print(hello())
-
-
-if __name__ == '__main__':
-    main()
