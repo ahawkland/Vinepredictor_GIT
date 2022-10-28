@@ -1,9 +1,14 @@
 import streamlit as st
 import requests
+import logging
+
+logging.basicConfig(
+    format="[%(asctime)s %(name)s %(levelname)s] %(message)s", level=logging.INFO
+)
 
 
 def get_prediction(request_json: list) -> dict:
-    """ This function communicates with the backend server prediction app
+    """This function communicates with the backend server prediction app
     request_json: a dictionary containing the list of features
     :returns the prediction in json"""
     req_features = request_json
@@ -16,9 +21,9 @@ def get_prediction(request_json: list) -> dict:
 
 
 def post_process(text) -> list:
-    """ This function process the user input string into a list of floats
+    """This function process the user input string into a list of floats
     :returns a list of floats"""
-    int_list = text.split(', ')
+    int_list = text.split(", ")
     into_list = [float(i) for i in int_list]
     return into_list
 
@@ -29,19 +34,21 @@ st.set_page_config(page_title="Vinepredictor app", layout="wide")
 # --- Header Section ---
 st.header("Vinepredictor App")
 st.text("please enter your features of your vine")
-input_features = st.text_area(label='Features')
+input_features = st.text_area(label="Features")
 
 # --- User input and prediction ---
 if input_features:  # after user enters the features
     st.text("Your features:")
     st.text(input_features)
-    print('input_features_type', type(input_features))
-    print('input_features', input_features)
+    logging.info(f"input_features_type: {input_features}")
+    logging.info(f"input_features: {input_features}")
     try:  # if the input is processable the prediction is run
         processed_features = post_process(input_features)
         response = get_prediction(processed_features)
-        st.text(f"The prediction of your input features is: {response['prediction']['prediction']}")
+        st.text(
+            f"The prediction of your input features is: {response['prediction']['prediction']}"
+        )
     except Exception as e:  # if the input is not adequate error returns
-        print(e)
-        st.text('There is something wrong with your input, please check.')
+        logging.info(e)
+        st.text("There is something wrong with your input, please check.")
         st.text(str(e))

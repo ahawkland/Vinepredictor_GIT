@@ -4,7 +4,7 @@ import src.vinepredictor
 
 DESCRIPTION = 'Machine Learning - Training package'
 LONG_DESCRIPTION = 'Machine learning package for training and parameter optimisation'
-PACKAGE_NAME = "vinepredictor"
+PACKAGE_NAME = "predictor"
 
 PATHFINDER = PathConfig()
 
@@ -17,7 +17,7 @@ def get_package_version():
 
 # setting up
 setup(
-    name='vinepredictor',
+    name='predictor',
     version=get_package_version(),
     author='Adam Hertelendi',
     description=DESCRIPTION,

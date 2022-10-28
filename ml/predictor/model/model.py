@@ -1,5 +1,6 @@
 # Model Repository for all models
 import warnings
+import logging
 from typing import Any, Optional
 
 import yaml
@@ -12,10 +13,13 @@ from sklearn import tree
 from sklearn.neighbors import KNeighborsClassifier
 from xgboost import XGBClassifier
 
-from src.vinepredictor.pathconfig import PathConfig
+from ml.predictor.pathconfig import PathConfig
 
-warnings.simplefilter(action='ignore', category=FutureWarning)
-warnings.simplefilter(action='ignore', category=DeprecationWarning)
+logging.basicConfig(
+    format="[%(asctime)s %(name)s %(levelname)s] %(message)s", level=logging.INFO)
+
+warnings.simplefilter(action="ignore", category=FutureWarning)
+warnings.simplefilter(action="ignore", category=DeprecationWarning)
 
 
 def read_configs(path: Path) -> dict:
@@ -29,7 +33,7 @@ def read_configs(path: Path) -> dict:
             config = yaml.safe_load(stream)
             return config
         except yaml.YAMLError as exc:
-            print(exc)
+            logging.info(exc)
 
 
 def get_model_attr(model: str, config: dict) -> tuple[Any, Optional[Any]]:
@@ -43,15 +47,17 @@ def get_model_attr(model: str, config: dict) -> tuple[Any, Optional[Any]]:
     model_config_repo = config.keys()
     if model not in model_config_repo:
         model_str = ", ".join(model_config_repo)
-        raise ValueError(f"{model} is not a valid model type. only available ones are {model_str}")
+        raise ValueError(
+            f"{model} is not a valid model type. only available ones are {model_str}"
+        )
     model_repo = {
-        "random_forest": RandomForestClassifier(criterion='gini', random_state=1),
+        "random_forest": RandomForestClassifier(criterion="gini", random_state=1),
         "logistic": LogisticRegression(),
         "svc_lin": SVC(),
         "svc_rbf": SVC(),
         "dtree": tree.DecisionTreeClassifier(),
         "knn": KNeighborsClassifier(),
-        "xgb": XGBClassifier()
+        "xgb": XGBClassifier(),
     }
 
     return model_repo.get(model), config.get(model)
@@ -59,9 +65,9 @@ def get_model_attr(model: str, config: dict) -> tuple[Any, Optional[Any]]:
 
 def main():
     PATHFINDER = PathConfig()
-    #print(read_configs(PATHFINDER.model_config))
-    print(get_model_attr('logistic', read_configs(PATHFINDER.model_config)))
+    # print(read_configs(PATHFINDER.model_config))
+    logging.info(get_model_attr("logistic", read_configs(PATHFINDER.model_config)))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

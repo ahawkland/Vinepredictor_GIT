@@ -1,6 +1,7 @@
 import typing as t
 import pickle
-from src.vinepredictor.pathconfig import PathConfig
+import logging
+from ml.predictor.pathconfig import PathConfig
 
 PATHFINDER = PathConfig()
 CENTRAL_MODEL_REPOSITORY = PATHFINDER.output
@@ -17,9 +18,9 @@ def save_model(model: t.Any, filename: t.Any, modelname: t.Any) -> str:
     :return: None
     """
     file_name = f"{filename}_{modelname}.pickle"
-    with open(CENTRAL_MODEL_REPOSITORY.joinpath(file_name), 'wb') as file_:
+    with open(CENTRAL_MODEL_REPOSITORY.joinpath(file_name), "wb") as file_:
         pickle.dump(model, file_)
-    print(f'Model Saved as: {file_name}')
+    logging.info(f"Model Saved as: {file_name}")
     return file_name
 
 
@@ -29,13 +30,13 @@ def read_model(filename: t.Optional) -> t.Any:
     :param filename: the saved models name
     :return: the model loaded in
     """
-    loaded_model = pickle.load(open(filename, 'rb'))
+    loaded_model = pickle.load(open(filename, "rb"))
     return loaded_model
 
 
 def main():
-    read_model(CENTRAL_MODEL_REPOSITORY.joinpath('vine_model_ran.pickle'))
+    read_model(CENTRAL_MODEL_REPOSITORY.joinpath("vine_model_ran.pickle"))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

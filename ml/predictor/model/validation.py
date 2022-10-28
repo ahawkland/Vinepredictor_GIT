@@ -1,5 +1,5 @@
 import typing as t
-
+import logging
 from sklearn.metrics import f1_score
 from sklearn.model_selection import GridSearchCV
 
@@ -13,11 +13,13 @@ def generate_validation(model, x, y) -> t.Dict[str, t.Any]:
     :return: a dict {model name : f1 score}
     """
     y_hat = model.predict(x)
-    f1 = f1_score(y_hat, y, average='weighted')
+    f1 = f1_score(y_hat, y, average="weighted")
     return {"f1": f1}
 
 
-def select_best(best_val: float, metric: float, model_name: str, best_model: str) -> tuple:
+def select_best(
+    best_val: float, metric: float, model_name: str, best_model: str
+) -> tuple:
     """
     The function returns the best model with the best metrics so far and marks if change was done (change = True)
     from the baseline
@@ -47,10 +49,10 @@ def grid_search(pipeline: t.Any, parameter_grid: t.Dict[str, t.List]) -> t.Any:
     gs = GridSearchCV(
         estimator=pipeline,
         param_grid=parameter_grid,
-        scoring='accuracy',
+        scoring="accuracy",
         cv=10,
         refit=True,
-        n_jobs=1
+        n_jobs=1,
     )
     return gs
 
@@ -63,12 +65,12 @@ def score_model(loaded_model, X, y):
     :param y: target
     :return: None
     """
-    print(loaded_model.score(X, y))
+    logging(loaded_model.score(X, y))
 
 
 def main():
     pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -1,19 +1,20 @@
 import pandas as pd
 import numpy as np
 import typing as t
+import logging
 from sklearn.svm import SVC
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
-from src.vinepredictor.Data.data import split_data
-from src.vinepredictor.model.model import get_model_attr, read_configs
-from src.vinepredictor.model.modelio import save_model
+from ml.Data.data import split_data
+from ml.predictor.model.model import get_model_attr, read_configs
+from ml.predictor.model.modelio import save_model
 
 
 from sklearn.datasets import load_iris
 
-from src.vinepredictor.pathconfig import PathConfig
-from src.vinepredictor.model.validation import grid_search, generate_validation, select_best
+from ml.predictor.pathconfig import PathConfig
+from ml.predictor.model.validation import grid_search, generate_validation, select_best
 
 
 def train_model(model: t.Optional[SVC], X, y) -> t.Any:
@@ -36,8 +37,8 @@ def execute_all(
     df_y: pd.DataFrame,
     config: t.Union[dict, list],
     filename: t.Optional[str] = None,
-    savemodel=False
-    ) -> object:
+    savemodel=False,
+) -> object:
     """
     The function returns a dictionary with the model name, the best parameters and the f1 scores based on the
     model dictionary and the name of the saved model
@@ -54,7 +55,7 @@ def execute_all(
     if filename is None:
         filename = defalt_filename
     best_f1 = 0.0
-    best_model_name = 'none_'
+    best_model_name = "none_"
     metrics = dict()
     X_train, X_test, y_train, y_test = split_data(df_x, df_y)
     for model in models:
@@ -63,13 +64,17 @@ def execute_all(
         gs = grid_search(pipeline, model_attr)
         mdl = train_model(gs, X_train, y_train)
         met = generate_validation(mdl, X_test, y_test)  # -> dictionary of metrics
-        best_model_name, best_f1, change = select_best(best_f1, met["f1"], model, best_model_name)
+        best_model_name, best_f1, change = select_best(
+            best_f1, met["f1"], model, best_model_name
+        )
         if change:
             best_mdl = mdl
         metrics[model] = met
 
-        print('For model', model, "the best parameters: \n", mdl.best_params_)  # include the best parameters
-    print(10 * '-', '\nBest Model:', best_model_name, 'with f1 score:', best_f1)
+        print(
+            "For model", model, "the best parameters: \n", mdl.best_params_
+        )  # include the best parameters
+    logging.info(10 * "-", "\nBest Model:", best_model_name, "with f1 score:", best_f1)
     if savemodel:
         save_model(best_mdl, filename, str(best_model_name)[:3])
         return metrics
@@ -78,16 +83,22 @@ def execute_all(
 
 
 def main():
-    #model_list = ['random_forest', 'logistic', 'svc_lin', 'svc_rbf', 'dtree', 'knn']
-    model_list = ['xgb']
+    # model_list = ['random_forest', 'logistic', 'svc_lin', 'svc_rbf', 'dtree', 'knn']
+    model_list = ["xgb"]
     # Loading data
     irisData = load_iris()
     # Create feature and target arrays
     df_x = pd.DataFrame(irisData.data)
     df_y = pd.DataFrame(irisData.target)
-    metrics = execute_all(model_list, df_x, df_y, filename='vine_model',
-                          config=read_configs(PATHFINDER.model_config), savemodel=False)
+    metrics = execute_all(
+        model_list,
+        df_x,
+        df_y,
+        filename="vine_model",
+        config=read_configs(PATHFINDER.model_config),
+        savemodel=False,
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
